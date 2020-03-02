@@ -14,6 +14,7 @@ import unsafeNegation from './unsafeNegation';
 import noAsyncPromiseExecutor from './noAsyncPromiseExecutor';
 import noLabelVar from './noLabelVar';
 import noDuplicateKeys from './noDuplicateKeys';
+import noSparseArrays from './noSparseArrays';
 
 export const lintTransforms = [
   undeclaredVariables,
@@ -25,4 +26,5 @@ export const lintTransforms = [
   noAsyncPromiseExecutor,
   noLabelVar,
   noDuplicateKeys,
+  noSparseArrays
 ];

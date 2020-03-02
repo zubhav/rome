@@ -219,3 +219,29 @@ test('no duplicate keys', async t => {
     },
   ]);
 });
+
+test('no sparse arrays', async t => {
+  const validTestCases = [
+    'const a = [1, 2, 3];',
+    'const b = [1, 2,];',
+    'const c = [];',
+  ];
+  const invalidTestCases = [
+    'const a = [,];',
+    'const b = [1,, 2];',
+  ];
+  for (const validTestCase of validTestCases) {
+    const {diagnostics} = await testLint(
+      validTestCase,
+      LINT_ENABLED_FORMAT_DISABLED_CONFIG,
+    );
+    t.is(diagnostics.length, 0);
+  }
+  for (const invalidTestCase of invalidTestCases) {
+    const {diagnostics} = await testLint(
+      invalidTestCase,
+      LINT_ENABLED_FORMAT_DISABLED_CONFIG,
+    );
+    t.truthy(diagnostics.find(d => d.category === 'lint/noSparseArrays'));
+  }
+});
